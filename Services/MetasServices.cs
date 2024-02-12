@@ -22,32 +22,32 @@ namespace Parcial1_Ap1_VladimirGuzman.Services
                 return await Modificar(metas);
         }
 
-        private async Task<bool> Modificar(Metas metas)
+        public async Task<bool> Modificar(Metas metas)
         {
             _contexto.Update(metas);
             return await _contexto.SaveChangesAsync() > 0;
         }
 
-        private async Task<bool> Insertar(Metas metas)
+        public async Task<bool> Insertar(Metas metas)
         {
             await _contexto.AddAsync(metas);
             return await _contexto.SaveChangesAsync() > 0;
         }
 
-        private async Task<bool> Existe(int metaId)
+        public async Task<bool> Existe(int metaId)
         {
             return await _contexto.Metas!
                 .AnyAsync(a => a.MetaId == metaId);
         }
 
-        private async Task<Metas?> Buscar(int metaId)
+        public async Task<Metas?> Buscar(int metaId)
         {
             return await _contexto.Metas!
                 .AsNoTracking()
                 .FirstOrDefaultAsync(a => a.MetaId == metaId);
         }
 
-        private async Task<bool> Eliminat(Metas aporte)
+        public async Task<bool> Eliminat(Metas aporte)
         {
             return await _contexto.Metas!
                 .Where(a => a.MetaId == aporte.MetaId)

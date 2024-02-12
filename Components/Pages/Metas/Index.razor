@@ -1,0 +1,123 @@
+﻿@page "/MetasIndex"
+@rendermode InteractiveServer
+@inject MetasServices metasServices
+<h3>MetasIndex</h3>
+
+<div class="card shadow-lg">
+    <div class="card-header">
+        <h3>Metas</h3>
+    </div>
+
+    <div class="card-body">
+        <form>
+            <div class="input-group d-flex aling-items-end">
+                <InputSelect class="form-select col-2" @bind-Value="Opcion">
+                    <option value="1">Descripci&oacute;n</option>
+                    <option value="2">Fecha</option>
+                    <option value="3">Monto</option>
+                </InputSelect>
+
+                <div class="flex-fill mx-2">
+                    <div class="input-group">
+                        <label class="input-group-text">Busqueda</label>
+
+                        <div class="col-auto">
+                            @switch (Opcion)
+                            {
+                                case 1:
+                                    <div class="input-group">
+                                        <InputText @bind-Value="metas.Descripcion" class="form-control"></InputText>
+                                        <button type="button" class="btn btn-primary bi bi-search" @onclick="Buscar"></button>
+                                    </div>
+                                    break;
+                                case 2:
+                                    <div class="input-group">
+                                        <InputDate @bind-Value="FechaInicio" class="form-control"></InputDate>
+                                        <InputDate @bind-Value="FechaFin" class="form-control"></InputDate>
+                                        <button type="button" class="btn btn-primary bi bi-search" @onclick="Buscar"></button>
+                                    </div>
+                                    break;
+                                case 3:
+                                    <div class="input-group">
+                                        <InputNumber @bind-Value="metas.Monto" class="form-control"></InputNumber>
+                                        <button type="button" class="btn btn-primary bi bi-search" @onclick="Buscar"></button>
+                                    </div>
+                                    break;
+
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <a href="/CreateMetas" class="btn btn-success mx-2"> Crear</a>
+
+            </div>
+        </form>
+    </div>
+
+    <table class="table table-bordered align-items-center">
+        <thead class="thead">
+            <tr class="table">
+
+                <th>Fecha</th>
+                <th>Descripcion</th>
+                <th>Monto</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+
+        <tbody>
+            @foreach (var item in ListaMetas)
+            {
+                <tr>
+                    <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                    <td>@item.Descripcion</td>
+                    <td>@item.Monto</td>
+                    <td><a class="btn btn-outline-primary" href="#/@item.MetaId">Ver</a></td>
+                    <td><a class="btn btn-outline-danger" href="#/@item.MetaId">Eliminar</a></td>
+                    <td><a class="btn btn-outline-danger" href="#/@item.MetaId">Modificar</a></td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <div class="card-footer">
+        <div class="form-row justify-content-sm-between" aria-orientation="vertical">
+            <div class="col-3">
+                <label for="CantidaRegistro" class="col-form-label"><strong>Filas: @ListaMetas.Count</strong>&nbsp;</label>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@code {
+    public List<Metas> ListaMetas = new List<Metas>();
+    public Metas metas = new Metas();
+    public int Opcion { get; set; }
+
+    public DateTime FechaInicio { get; set; } = DateTime.Today;
+    public DateTime FechaFin { get; set; } = DateTime.Today;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListaMetas = await metasServices.Listar(a => true);
+    }
+
+    public async Task Buscar()
+    {
+        if (Opcion == 1 && !string.IsNullOrEmpty(metas.Descripcion))
+            ListaMetas = await metasServices.Listar(t => t.Descripcion!.ToLower().Contains(metas.Descripcion.ToLower()));
+        else if (Opcion == 2 && FechaFin != default && FechaInicio != default)
+            ListaMetas = await metasServices.Listar(t => t.Fecha <= FechaFin && t.Fecha >= FechaInicio);
+        else if (Opcion == 3 && metas.Monto > 0)
+            ListaMetas = await metasServices.Listar(a => a.Monto == metas.Monto);
+        else
+            ListaMetas = await metasServices.Listar(t => true);
+    }
+}
+

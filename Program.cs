@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Parcial1_Ap1_VladimirGuzman.Components;
 using Parcial1_Ap1_VladimirGuzman.DAL;
+using Parcial1_Ap1_VladimirGuzman.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddRazorComponents()
 
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
 builder.Services.AddDbContext<Contexto>(option => option.UseSqlite(ConStr));
+
+builder.Services.AddScoped<MetasServices>();
 
 var app = builder.Build();
 

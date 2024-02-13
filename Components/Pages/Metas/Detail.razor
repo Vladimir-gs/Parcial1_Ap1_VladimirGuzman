@@ -1,0 +1,54 @@
+﻿<h3>DatailAporte</h3>
+@inject MetasServices metasServices
+@rendermode InteractiveServer
+@page "/DetailMetas";
+@page "/DetailMetas/{metaId:int}";
+
+<PageTitle>Detalle Metas</PageTitle>
+
+<div class="card shadow-lg">
+    <div class="card-header">
+        <h3>Detalles</h3>
+    </div>
+
+    <div class="card-body">
+        <p><strong>Id:</strong> @meta.MetaId</p>
+        <p><strong>Fecha:</strong> @meta.Fecha.ToString("dd/MM/yyyy")</p>
+        <p><strong>Descripci&oacute;n:</strong> @meta.Descripcion</p>
+        <p><strong>Monto:</strong> @meta.Monto</p>
+    </div>
+
+    <div class="card-footer d-flex justify-content-end input-group">
+        <a href="/MetasIndex" class="btn btn-primary">Volver</a>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int metaId { get; set; }
+    public Metas meta { get; set; } = new Metas();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (metaId > 0)
+        {
+            meta.MetaId = metaId;
+            await Buscar();
+        }
+    }
+
+    public async Task Buscar()
+    {
+
+        var ticketbuscado = await metasServices.Buscar(meta.MetaId);
+        if (ticketbuscado != null)
+        {
+            meta = ticketbuscado;
+        }
+        else
+        {
+            meta = new Metas();
+        }
+    }
+
+}

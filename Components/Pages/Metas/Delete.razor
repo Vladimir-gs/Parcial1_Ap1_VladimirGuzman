@@ -1,5 +1,4 @@
-﻿
-@inject MetasServices metasServices
+﻿@inject MetasServices metasServices
 @rendermode InteractiveServer
 @page "/DeleteMeta";
 @page "/DeleteMeta/{MetaId:int}";
@@ -14,14 +13,12 @@
     <div class="card-body">
         <p><strong>Id:</strong> @meta.MetaId</p>
         <p><strong>Fecha:</strong> @meta.Fecha.ToString("dd/MM/yyyy")</p>
-        <p><strong>Persona:</strong> @meta.Descripcion</p>
-        <p><strong>Observaci&oacute;n:</strong> @meta.Monto</p>
+        <p><strong>Descripci&oacute;n:</strong> @meta.Descripcion</p>
         <p><strong>Monto:</strong> @meta.Monto</p>
     </div>
     <div class="card-footer d-flex justify-content-end input-group">
         <a href="/MetasIndex" class="btn btn-primary">Volver</a>
         <button type="button" class="btn btn-danger bi bi-trash-fill" @onclick="Eliminar">Eliminar</button>
-
     </div>
 </div>
 

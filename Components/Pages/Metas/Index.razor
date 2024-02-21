@@ -74,7 +74,7 @@
                 <tr>
                     <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
                     <td>@item.Descripcion</td>
-                    <td>@item.Monto</td>
+                    <td>@item.Monto.ToString("N")</td>
                     <td><a class="btn btn-outline-primary bi bi-eye-fill" href="DetailMetas/@item.MetaId"></a></td>
                     <td><a class="btn btn-outline-danger bi bi-person-x" href="DeleteMeta/@item.MetaId"></a></td>
                     <td><a class="btn btn-outline-danger bi bi-pencil-square" href="EditMeta/@item.MetaId"></a></td>

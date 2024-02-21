@@ -1,6 +1,6 @@
 ﻿@page "/MetasIndex"
 @rendermode InteractiveServer
-@inject MetasServices metasServices
+@inject MetasService metasServices
 <h3>MetasIndex</h3>
 
 <div class="card shadow-lg">
@@ -19,7 +19,7 @@
 
                 <div class="flex-fill mx-2">
                     <div class="input-group">
-                        <label class="input-group-text">Busqueda</label>
+                        <label class="input-group-text">B&uacute;squeda</label>
 
                         <div class="col-auto">
                             @switch (Opcion)
@@ -49,7 +49,7 @@
                     </div>
                 </div>
 
-                <a href="/CreateMetas" class="btn btn-success mx-2"> Crear</a>
+                <a href="/CreateMetas" class="btn btn-success mx-2 bi bi-plus-square"> Crear</a>
 
             </div>
         </form>
@@ -62,9 +62,9 @@
                 <th>Fecha</th>
                 <th>Descripci&oacute;n</th>
                 <th>Monto</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th>Ver</th>
+                <th>Eliminar</th>
+                <th>Modificar</th>
             </tr>
         </thead>
 
@@ -74,10 +74,10 @@
                 <tr>
                     <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
                     <td>@item.Descripcion</td>
-                    <td>@item.Monto</td>
-                    <td><a class="btn btn-outline-primary" href="DetailMetas/@item.MetaId">Ver</a></td>
-                    <td><a class="btn btn-outline-danger" href="DeleteMeta/@item.MetaId">Eliminar</a></td>
-                    <td><a class="btn btn-outline-danger" href="EditMeta/@item.MetaId">Modificar</a></td>
+                    <td>@item.Monto.ToString("N")</td>
+                    <td><a class="btn btn-outline-primary bi bi-eye-fill" href="DetailMetas/@item.MetaId"></a></td>
+                    <td><a class="btn btn-outline-danger bi bi-person-x" href="DeleteMeta/@item.MetaId"></a></td>
+                    <td><a class="btn btn-outline-danger bi bi-pencil-square" href="EditMeta/@item.MetaId"></a></td>
                 </tr>
             }
         </tbody>

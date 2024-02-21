@@ -51,18 +51,11 @@
 </EditForm>
 
 @code {
-    [Parameter]
     public int MetaId { get; set; }
     public Metas meta = new Metas();
 
     protected override async Task OnInitializedAsync()
     {
-        if (MetaId > 0)
-        {
-            meta.MetaId = MetaId;
-            await Buscar();
-        }
-        meta.MetaId = MetaId;
         meta.Fecha = DateTime.Today;
     }
 
@@ -77,14 +70,5 @@
         var guardo = await metasServices.Guardar(meta);
         if (guardo)
             Nuevo();
-    }
-
-    public async Task Buscar()
-    {
-        var buscar = await metasServices.Buscar(meta.MetaId);
-        if (buscar != null)
-        {
-            meta = buscar;
-        }
     }
 }

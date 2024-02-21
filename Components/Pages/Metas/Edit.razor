@@ -1,5 +1,5 @@
 ﻿@page "/EditMeta"
-@page "/EditMeta/{MetaId:int}";
+@page "/EditMeta/{MetaId:int}"
 @inject MetasService MetasServices
 @rendermode InteractiveServer
 <PageTitle>Edit Metas</PageTitle>
@@ -15,25 +15,25 @@
             <div class="col col-4">
                 <label class="form-label">Meta Id:</label>
                 <InputNumber @bind-Value="meta.MetaId" class="form-control"></InputNumber>
-                <ValidationMessage For="@(() => meta.MetaId)"></ValidationMessage>
+                <ValidationMessage For="@(() => meta.MetaId)" />
             </div>
 
             <div class="col col-4">
                 <label class="form-label">Fecha:</label>
                 <InputDate @bind-Value="meta.Fecha" class="form-control"></InputDate>
-                <ValidationMessage For="@(() => meta.Fecha)"></ValidationMessage>
+                <ValidationMessage For="@(() => meta.Fecha)" />
             </div>
 
             <div class="col col-4">
                 <label class="form-label">Descripci&oacute;n:</label>
                 <InputText @bind-Value="meta.Descripcion" class="form-control"></InputText>
-                <ValidationMessage For="@(() => meta.Descripcion)"></ValidationMessage>
+                <ValidationMessage For="@(() => meta.Descripcion)" />
             </div>
 
             <div class="col col-4">
                 <label class="form-label">Monto:</label>
                 <InputNumber @bind-Value="meta.Monto" class="form-control"></InputNumber>
-                <ValidationMessage For="@(() => meta.Monto)"></ValidationMessage>
+                <ValidationMessage For="@(() => meta.Monto)" />
             </div>
 
         </div>

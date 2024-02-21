@@ -1,7 +1,7 @@
 ﻿@inject MetasService metasServices
 @rendermode InteractiveServer
-@page "/DetailMetas";
-@page "/DetailMetas/{metaId:int}";
+@page "/DetailMetas"
+@page "/DetailMetas/{metaId:int}"
 
 <PageTitle>Detalle Metas</PageTitle>
 
@@ -38,14 +38,10 @@
 
     public async Task Buscar()
     {
-        var ticketbuscado = await metasServices.Buscar(meta.MetaId);
-        if (ticketbuscado != null)
+        var buscado = await metasServices.Buscar(meta.MetaId);
+        if (buscado != null)
         {
-            meta = ticketbuscado;
-        }
-        else
-        {
-            meta = new Metas();
+            meta = buscado;
         }
     }
 }

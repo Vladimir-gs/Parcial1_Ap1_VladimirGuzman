@@ -5,11 +5,12 @@ using System.Linq.Expressions;
 
 namespace Parcial1_Ap1_VladimirGuzman.Services
 {
-    public class MetasServices
+    public class MetasService
+
     {
         protected readonly Contexto _contexto;
 
-        public MetasServices(Contexto contexto)
+        public MetasService(Contexto contexto)
         {
             _contexto = contexto;
         }
